@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="8dp">
+
+    <RelativeLayout
+        android:id="@+id/heading_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ImageView
+            android:id="@+id/image"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:src="@drawable/ic_person"
+            android:contentDescription="@string/title" />
+
+        <TextView
+            android:id="@+id/headline_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toEndOf="@id/image"
+            android:layout_alignParentTop="true"
+            android:paddingEnd="8dp"
+            android:paddingStart="8dp"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            tools:text="@string/title" />
+
+        <TextView
+            android:id="@+id/published_time_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/headline_tv"
+            android:layout_toEndOf="@id/image"
+            android:gravity="start"
+            android:paddingEnd="8dp"
+            android:paddingStart="8dp"
+            android:textSize="14sp"
+            tools:text="@string/published_time" />
+
+        <TextView
+            android:id="@+id/source_name_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_below="@id/headline_tv"
+            android:layout_toEndOf="@id/image"
+            android:gravity="end"
+            android:paddingEnd="8dp"
+            android:paddingStart="8dp"
+            android:textSize="14sp"
+            tools:text="@string/source_name" />
+    </RelativeLayout>
+
+    <TextView
+        android:id="@+id/description_tv"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:textSize="18sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/heading_layout"
+        tools:text="@string/description" />
+
+    <TextView
+        android:id="@+id/url_path_tv"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:textSize="16sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/description_tv"
+        tools:text="@string/url" />
+</android.support.constraint.ConstraintLayout>

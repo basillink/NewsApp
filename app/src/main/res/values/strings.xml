@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">News App</string>
+    <string name="published_time">2018-07-30T11:08:07Z</string>
+    <string name="title">Grace Mugabe\'s diplomatic immunity not constitutional – Court</string>
+    <string name="description">A South African court on Monday ruled that the diplomatic immunity enjoyed by former Zimbabwean first lady, Grace Mugabe is</string>
+    <string name="url">https://punchng.com/grace-mugabes-diplomatic-immunity-not-constitutional-court/</string>
+    <string name="source_name">Punchng.com</string>
+    <string name="no_internet_connection">No internet connection.</string>
+    <string name="no_news_report_found">No News Report found</string>
+</resources>
