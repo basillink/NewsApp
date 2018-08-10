@@ -22,19 +22,17 @@ import java.util.List;
  * Helper methods related to requesting and receiving news articles from the API.
  */
 public class QueryUtils {
-    /**
-     * Tag for the log messages
-     */
+
+    /** Tag for the log messages */
     private static final String LOG_TAG = QueryUtils.class.getSimpleName();
 
-    /**
-     * An empty private constructor of {@link QueryUtils}.
-     */
+    /** An empty private constructor of {@link QueryUtils}. */
     private QueryUtils() {
     }
 
     /**
      * Query the News Api and return a list of {@link NewsReport} objects.
+     * @param requestUrl the query url
      */
     public static List<NewsReport> fetchNewsData(String requestUrl) {
         // Create URL object
@@ -169,7 +167,7 @@ public class QueryUtils {
 
                     // For a given article, extract the JSONObject associated with the key "sources",
                     // which holds the name of the media that reports the news.
-                    JSONObject newsSources = currentArticle.getJSONObject("sources");
+                    JSONObject newsSources = currentArticle.getJSONObject("source");
 
                     // Extract the value for the key called "name"
                     String authorSources = newsSources.getString("name");

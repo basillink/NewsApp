@@ -23,14 +23,13 @@ import java.util.Date;
 /**
  * A {@link NewsReportAdapter} knows how to create a list item layout for each news article
  * in the data source (a list of {@link NewsReport} objects).
- * <p>
  * These list item layouts will be provided to an adapter view like ListView
  * to be displayed to the user.
  */
 public class NewsReportAdapter extends ArrayAdapter<NewsReport> {
+
     /**
      * Constructs a new {@link NewsReportAdapter}.
-     *
      * @param context     of the app
      * @param newsReports is the list of news articles, which is the data source of the adapter
      */
@@ -49,18 +48,20 @@ public class NewsReportAdapter extends ArrayAdapter<NewsReport> {
         // otherwise, if convertView is null, then inflate a new list item layout.
         View listItemView = convertView;
         if (listItemView == null) {
-            listItemView = LayoutInflater.from(getContext()).inflate(R.layout.highlights, parent, false);
+            listItemView = LayoutInflater.from(getContext()).inflate(
+                    R.layout.highlights, parent, false);
         }
 
         // Find the news article at the given position in the list of news reports
         NewsReport currentNewsReport = getItem(position);
 
+        // Create an instance of the ViewHolder
         ViewHolder holder = new ViewHolder();
 
         // Find the ImageView with view ID image
         holder.imageView = listItemView.findViewById(R.id.image);
         // Display the image of the current news article in that ImageView
-        new DownloadImage(holder.imageView).execute();
+        new DownloadImage(holder.imageView).execute(currentNewsReport.getNewsIcon());
 
         // Find the TextView with view ID headline_tv
         holder.tvTitle = listItemView.findViewById(R.id.headline_tv);
@@ -68,11 +69,11 @@ public class NewsReportAdapter extends ArrayAdapter<NewsReport> {
         holder.tvTitle.setText(currentNewsReport.getHeadline());
 
         // Create a new Date object from the time in date and time of the news article
-        Date dateObject = new Date(currentNewsReport.getPublishedTime());
-        // Find the TextView with view ID published_time_tv
+//        Date dateObject = new Date(currentNewsReport.getPublishedTime());
+//        // Find the TextView with view ID published_time_tv
         holder.tvTime = listItemView.findViewById(R.id.published_time_tv);
-        // Display the published time of the current news article in that TextView
-        holder.tvTime.setText(formatDateTime(dateObject));
+//        // Display the published time of the current news article in that TextView
+        holder.tvTime.setText(currentNewsReport.getPublishedTime());
 
         // Find the TextView with view ID description_tv
         holder.tvDescription = listItemView.findViewById(R.id.description_tv);
@@ -92,19 +93,28 @@ public class NewsReportAdapter extends ArrayAdapter<NewsReport> {
         return listItemView;
     }
 
-    static class ViewHolder {
-        public ImageView imageView;
-        public TextView tvTitle;
-        public TextView tvTime;
-        public TextView tvDescription;
-        public TextView tvUrl;
-        public TextView sourceName;
+    private static class ViewHolder {
+        private ImageView imageView;
+        private TextView tvTitle;
+        private TextView tvTime;
+        private TextView tvDescription;
+        private TextView tvUrl;
+        private TextView sourceName;
     }
 
+    /**
+     * Loads the image relevant to the news article by using an AsyncTask to perform the
+     * network request to the given URL.
+     */
     private class DownloadImage extends AsyncTask<String, Void, Bitmap> {
 
+        /** Image icon of the News Article */
         ImageView mImageView;
 
+        /**
+         * The Constructor for a new {@link DownloadImage}.
+         * @param imageView of the news article to load
+         */
         private DownloadImage(ImageView imageView) {
             this.mImageView = imageView;
         }
@@ -118,12 +128,21 @@ public class NewsReportAdapter extends ArrayAdapter<NewsReport> {
         protected Bitmap doInBackground(String... urls) {
             String urlToImagePath = urls[0];
             Bitmap urlImage = null;
+            InputStream stream = null;
 
             try {
-                InputStream stream = new URL(urlToImagePath).openStream();
+                stream = new URL(urlToImagePath).openStream();
                 urlImage = BitmapFactory.decodeStream(stream);
             } catch (IOException e) {
                 e.printStackTrace();
+            }finally {
+                try {
+                    if (stream != null) {
+                        stream.close();
+                    }
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
             }
             return urlImage;
         }
